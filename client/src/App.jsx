@@ -8,14 +8,14 @@ function App() {
   const [newDesc, setNewDesc] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:5000/tasks')
+    axios.get('https://your-backend-url.onrender.com/tasks')
       .then(res => setTasks(res.data))
       .catch(err => console.error(err));
   }, []);
 
   const handleAddTask = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:5000/tasks', { title: newTitle, description: newDesc })
+    axios.post('https://your-backend-url.onrender.com/tasks', { title: newTitle, description: newDesc })
       .then(res => {
         setTasks([...tasks, res.data]);
         setNewTitle('');
@@ -25,13 +25,13 @@ function App() {
   }
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:5000/tasks/${id}`)
+    axios.delete(`https://your-backend-url.onrender.com/tasks/${id}`)
       .then(() => setTasks(tasks.filter(task => task.id !== id)))
       .catch(err => console.error(err));
   }
 
   const handleToggleComplete = (id) => {
-    axios.patch(`http://localhost:5000/tasks/${id}`)
+    axios.patch(`https://your-backend-url.onrender.com/tasks/${id}`)
       .then(res => {
         setTasks(tasks.map(task => task.id === id ? res.data : task));
       })
