@@ -8,14 +8,14 @@ function App() {
   const [newDesc, setNewDesc] = useState('');
 
   useEffect(() => {
-    axios.get('https://task-manager-4uzp.onrender.com')
+    axios.get('https://task-manager-4uzp.onrender.com/tasks')
       .then(res => setTasks(res.data))
       .catch(err => console.error(err));
   }, []);
 
   const handleAddTask = (e) => {
     e.preventDefault();
-    axios.post('https://task-manager-4uzp.onrender.com', { title: newTitle, description: newDesc })
+    axios.post('https://task-manager-4uzp.onrender.com/tasks', { title: newTitle, description: newDesc })
       .then(res => {
         setTasks([...tasks, res.data]);
         setNewTitle('');
@@ -25,13 +25,13 @@ function App() {
   }
 
   const handleDelete = (id) => {
-    axios.delete(`https://task-manager-4uzp.onrender.com/${id}`)
+    axios.delete(`https://task-manager-4uzp.onrender.com/tasks/${id}`)
       .then(() => setTasks(tasks.filter(task => task.id !== id)))
       .catch(err => console.error(err));
   }
 
   const handleToggleComplete = (id) => {
-    axios.patch(`https://task-manager-4uzp.onrender.com/${id}`)
+    axios.patch(`https://task-manager-4uzp.onrender.com/tasks/${id}`)
       .then(res => {
         setTasks(tasks.map(task => task.id === id ? res.data : task));
       })
